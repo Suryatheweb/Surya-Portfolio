@@ -143,14 +143,14 @@ const Portfolio = () => {
       <div className="fixed inset-4 border border-[#2b2b2b]/20 pointer-events-none z-50 hidden md:block"></div>
       <div className="fixed inset-8 border border-[#2b2b2b]/10 pointer-events-none z-50 hidden md:block"></div>
 
-      <nav className="fixed top-0 left-0 w-full z-40 flex justify-between items-start p-6 md:p-10">
-        <div className="text-xl font-bold tracking-tighter border-b-2 border-[#c93b2b]">
-          SURYA <span className="text-sm font-normal ml-1 opacity-60"> portfolio</span>
+      <nav className="fixed top-0 left-0 w-full z-40 flex justify-between items-start p-4 md:p-10">
+        <div className="text-base md:text-xl font-bold tracking-tighter border-b-2 border-[#c93b2b]">
+          SURYA <span className="text-xs md:text-sm font-normal ml-1 opacity-60"> portfolio</span>
         </div>
         <div className="flex items-center gap-6">
           <button
             onClick={() => setLang(lang === 'en' ? 'jp' : 'en')}
-            className="text-[10px] font-bold uppercase tracking-tighter border border-[#2b2b2b] px-2 py-1 hover:bg-[#2b2b2b] hover:text-white transition-all"
+            className="text-[9px] md:text-[10px] font-bold uppercase tracking-tighter border border-[#2b2b2b] px-1.5 md:px-2 py-1 hover:bg-[#2b2b2b] hover:text-white transition-all"
           >
             {lang === 'en' ? 'JP' : 'EN'}
           </button>
@@ -178,7 +178,7 @@ const Portfolio = () => {
         </div>
       )}
 
-      <section id="about" className="relative min-h-screen flex items-center justify-center p-6 md:p-20">
+      <section id="about" className="relative min-h-screen flex items-center justify-center px-4 py-24 md:p-20">
         <div className="absolute right-10 top-1/2 -translate-y-1/2 hidden lg:block">
           <div 
             className="text-5xl md:text-7xl font-bold opacity-10" 
@@ -190,7 +190,7 @@ const Portfolio = () => {
 
         <div className="max-w-4xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6 animate-fade-in-up">
-            <h1 className="text-5xl sm:text-6xl md:text-8xl font-black leading-[1.05] tracking-tighter break-words">
+            <h1 className="text-4xl sm:text-5xl md:text-8xl font-black leading-[1.05] tracking-tighter break-words">
               {t.hero.title.split(' ').map((word, i) => (
                 <span key={i} className="block animate-fade-in-up" style={{ animationDelay: `${i * 0.2}s` }}>
                   {word}
