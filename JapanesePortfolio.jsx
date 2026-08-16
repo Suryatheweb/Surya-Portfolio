@@ -11,6 +11,7 @@ import React, { useState, useEffect } from 'react';
 
 const JapanesePortfolio = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -18,6 +19,12 @@ const JapanesePortfolio = () => {
     }, 2500);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleNavClick = (id) => {
+    setIsMenuOpen(false);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   if (isLoading) {
     return <ShinChanLoader />;
@@ -39,8 +46,23 @@ const JapanesePortfolio = () => {
           <a href="#education" className="hover:text-[#c93b2b] transition-colors">Education</a>
           <a href="#skills" className="hover:text-[#c93b2b] transition-colors">Skills</a>
         </div>
-        <div className="md:hidden text-sm font-bold uppercase">Menu</div>
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
+          className="md:hidden text-sm font-bold uppercase tracking-widest border border-[#2b2b2b] px-3 py-1.5 hover:bg-[#2b2b2b] hover:text-white transition-all"
+        >
+          {isMenuOpen ? 'Close' : 'Menu'}
+        </button>
       </nav>
+
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-30 bg-[#f7f5f0] flex flex-col items-center justify-center gap-10 md:hidden">
+          <a href="#about" onClick={() => handleNavClick('about')} className="text-4xl font-black tracking-tighter hover:text-[#c93b2b] transition-colors">About</a>
+          <a href="#education" onClick={() => handleNavClick('education')} className="text-4xl font-black tracking-tighter hover:text-[#c93b2b] transition-colors">Education</a>
+          <a href="#skills" onClick={() => handleNavClick('skills')} className="text-4xl font-black tracking-tighter hover:text-[#c93b2b] transition-colors">Skills</a>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section id="about" className="relative min-h-screen flex items-center justify-center p-6 md:p-20">
@@ -102,7 +124,7 @@ const JapanesePortfolio = () => {
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
             <div>
               <span className="text-[#c93b2b] font-bold tracking-widest uppercase text-xs">Academic History</span>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-2">EDUCATION</h2>
+              <h2 className="text-3xl md:text-6xl font-black tracking-tighter mt-2">EDUCATION</h2>
             </div>
             <div className="hidden md:block text-right opacity-40 text-sm font-mono">
               / 学歴 /
@@ -141,7 +163,7 @@ const JapanesePortfolio = () => {
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
             <div>
               <span className="text-[#c93b2b] font-bold tracking-widest uppercase text-xs">Capabilities</span>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-2">SKILLS</h2>
+              <h2 className="text-3xl md:text-6xl font-black tracking-tighter mt-2">SKILLS</h2>
             </div>
             <div className="hidden md:block text-right opacity-40 text-sm font-mono">
               / 技術 /

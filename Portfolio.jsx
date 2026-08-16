@@ -115,39 +115,11 @@ const ShinChanLoader = () => {
   );
 };
 
-const CustomCursor = () => {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [delayedPos, setDelayedPos] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    const animationFrame = setInterval(() => {
-      setDelayedPos(prev => ({
-        x: prev.x + (pos.x - prev.x) * 0.15,
-        y: prev.y + (pos.y - prev.y) * 0.15,
-      }));
-    }, 16);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      clearInterval(animationFrame);
-    };
-  }, [pos]);
-
-  return (
-    <div 
-      className="fixed top-0 left-0 w-6 h-6 rounded-full border-2 border-[#c93b2b] pointer-events-none z-[1000] mix-blend-difference transition-transform duration-75"
-      style={{ transform: `translate(${delayedPos.x - 12}px, ${delayedPos.y - 12}px)` }}
-    />
-  );
-};
-
 const Portfolio = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [lang, setLang] = useState('en');
   const [isRevealed, setIsRevealed] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const t = translations[lang];
 
   useEffect(() => {
@@ -158,11 +130,16 @@ const Portfolio = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleNavClick = (id) => {
+    setIsMenuOpen(false);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   if (isLoading) return <ShinChanLoader />;
 
   return (
     <div className={`min-h-screen bg-[#f7f5f0] text-[#2b2b2b] font-serif selection:bg-[#c93b2b] selection:text-white transition-all duration-1000 ease-out ${isRevealed ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
-      <CustomCursor />
       <div className="fixed inset-4 border border-[#2b2b2b]/20 pointer-events-none z-50 hidden md:block"></div>
       <div className="fixed inset-8 border border-[#2b2b2b]/10 pointer-events-none z-50 hidden md:block"></div>
 
@@ -171,7 +148,7 @@ const Portfolio = () => {
           SURYA <span className="text-sm font-normal ml-1 opacity-60"> portfolio</span>
         </div>
         <div className="flex items-center gap-6">
-          <button 
+          <button
             onClick={() => setLang(lang === 'en' ? 'jp' : 'en')}
             className="text-[10px] font-bold uppercase tracking-tighter border border-[#2b2b2b] px-2 py-1 hover:bg-[#2b2b2b] hover:text-white transition-all"
           >
@@ -182,9 +159,24 @@ const Portfolio = () => {
             <a href="#education" className="hover:text-[#c93b2b] transition-colors">{t.nav.education}</a>
             <a href="#skills" className="hover:text-[#c93b2b] transition-colors">{t.nav.skills}</a>
           </div>
-          <div className="md:hidden text-sm font-bold uppercase">Menu</div>
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            className="md:hidden text-sm font-bold uppercase tracking-widest border border-[#2b2b2b] px-3 py-1.5 hover:bg-[#2b2b2b] hover:text-white transition-all"
+          >
+            {isMenuOpen ? 'Close' : 'Menu'}
+          </button>
         </div>
       </nav>
+
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-30 bg-[#f7f5f0] flex flex-col items-center justify-center gap-10 md:hidden animate-fade-in-up">
+          <a href="#about" onClick={() => handleNavClick('about')} className="text-4xl font-black tracking-tighter hover:text-[#c93b2b] transition-colors">{t.nav.about}</a>
+          <a href="#education" onClick={() => handleNavClick('education')} className="text-4xl font-black tracking-tighter hover:text-[#c93b2b] transition-colors">{t.nav.education}</a>
+          <a href="#skills" onClick={() => handleNavClick('skills')} className="text-4xl font-black tracking-tighter hover:text-[#c93b2b] transition-colors">{t.nav.skills}</a>
+        </div>
+      )}
 
       <section id="about" className="relative min-h-screen flex items-center justify-center p-6 md:p-20">
         <div className="absolute right-10 top-1/2 -translate-y-1/2 hidden lg:block">
@@ -243,7 +235,7 @@ const Portfolio = () => {
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
             <div className="animate-fade-in-up">
               <span className="text-[#c93b2b] font-bold tracking-widest uppercase text-xs">{t.education.subtitle}</span>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-2">{t.education.title}</h2>
+              <h2 className="text-3xl md:text-6xl font-black tracking-tighter mt-2">{t.education.title}</h2>
             </div>
             <div className="hidden md:block text-right opacity-40 text-sm font-mono">
               {t.education.jp_label}
@@ -267,7 +259,7 @@ const Portfolio = () => {
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
             <div className="animate-fade-in-up">
               <span className="text-[#c93b2b] font-bold tracking-widest uppercase text-xs">{t.skills.subtitle}</span>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mt-2">{t.skills.title}</h2>
+              <h2 className="text-3xl md:text-6xl font-black tracking-tighter mt-2">{t.skills.title}</h2>
             </div>
             <div className="hidden md:block text-right opacity-40 text-sm font-mono">
               {t.skills.jp_label}
