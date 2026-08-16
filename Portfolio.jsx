@@ -198,7 +198,7 @@ const Portfolio = () => {
 
         <div className="max-w-4xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6 animate-fade-in-up">
-            <h1 className="text-6xl md:text-8xl font-black leading-none tracking-tighter">
+            <h1 className="text-5xl sm:text-6xl md:text-8xl font-black leading-[1.05] tracking-tighter break-words">
               {t.hero.title.split(' ').map((word, i) => (
                 <span key={i} className="block animate-fade-in-up" style={{ animationDelay: `${i * 0.2}s` }}>
                   {word}

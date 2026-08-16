@@ -55,7 +55,7 @@ const JapanesePortfolio = () => {
 
         <div className="max-w-4xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <h1 className="text-6xl md:text-8xl font-black leading-none tracking-tighter">
+            <h1 className="text-5xl sm:text-6xl md:text-8xl font-black leading-[1.05] tracking-tighter break-words">
               DESIGN <br /> 
               <span className="text-[#c93b2b]">MEETS</span> <br />
               CODE.
