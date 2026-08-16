@@ -1,0 +1,8 @@
+node_modules/
+.vite/
+dist/
+.git_disabled/
+monocular_depth_estimation/
+visual_servoing/
+snake_game.py
+*.log
